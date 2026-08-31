@@ -16,6 +16,11 @@ jobs:
         with:
           go-version: "1.22"
 
+      - name: Create web/dist placeholder (go:embed needs it)
+        run: |
+          mkdir -p web/dist
+          echo '<!doctype html><title>placeholder</title>' > web/dist/index.html
+
       - name: gofmt check
         run: |
           unformatted=$(gofmt -l . | grep -v '^web/' || true)
