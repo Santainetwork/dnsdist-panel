@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & publish binary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Create web/dist placeholder
+        run: |
+          mkdir -p web/dist
+          echo '<!doctype html><title>placeholder</title>' > web/dist/index.html
+
+      - name: Build frontend (real dist)
+        working-directory: web
+        run: npm install && npm run build
+
+      - name: Build binary
+        run: go build -ldflags="-s -w" -o dnsdist-panel ./cmd/server/
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dnsdist-panel
+          generate_release_notes: true
