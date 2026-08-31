@@ -27,6 +27,7 @@ type Config struct {
 	HealthScript  string
 	DNSDistAPI    string
 	DNSDistAPIKey string
+	CDBToken      string
 }
 
 type Server struct {
@@ -84,6 +85,8 @@ func (s *Server) Run() error {
 		}
 		static.Handler().ServeHTTP(c.Writer, c.Request)
 	})
+
+	s.setupCDBRoutes(r)
 
 	return r.Run(s.cfg.Addr)
 }

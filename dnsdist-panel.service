@@ -13,6 +13,7 @@ Environment=PANEL_DB=/var/lib/dnsdist/panel.db
 # Environment=PANEL_USER=admin
 # Environment=PANEL_PASS=change-me
 # Environment=DNSDIST_APIKEY=trust-ng-apikey-changeme
+# Environment=CDB_TOKEN=peer-shared-secret   # X-CDB-Token untuk peer nodes
 # Environment=TRUST_BUILDER=/usr/local/bin/trust-builder
 LimitNOFILE=65536
 

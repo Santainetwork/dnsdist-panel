@@ -27,12 +27,13 @@ func main() {
 		Addr:          addr,
 		User:          getenv("PANEL_USER", "admin"),
 		Pass:          getenv("PANEL_PASS", "trust-ng-admin"),
-		DBFile:        "/var/lib/dnsdist/blacklist.db",
+		DBFile:        getenv("DB_FILE", "/var/lib/dnsdist/blacklist.db"),
 		TrustBuilder:  "/usr/local/bin/trust-builder",
 		UpdateScript:  "/usr/local/bin/update-blacklist.sh",
 		HealthScript:  "/usr/local/bin/dnsdist-health.sh",
 		DNSDistAPI:    "http://127.0.0.1:8083",
 		DNSDistAPIKey: os.Getenv("DNSDIST_APIKEY"),
+		CDBToken:      os.Getenv("CDB_TOKEN"),
 	})
 	if err := srv.Run(); err != nil {
 		log.Fatalf("server: %v", err)

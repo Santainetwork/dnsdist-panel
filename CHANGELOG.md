@@ -7,6 +7,13 @@ dan project ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-31
+
+### Added
+- CDB Publisher (cluster Phase 3): route `/cdb/*` — healthz, manifest.json, blacklist.db, blacklist.<sha>.db
+- Auth antar node via `X-CDB-Token` (env `CDB_TOKEN`, opsional)
+- `DB_FILE` env-configurable
+
 ## [0.1.0] - 2026-08-31
 
 ### Added

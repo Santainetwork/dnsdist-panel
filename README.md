@@ -41,6 +41,8 @@ PANEL_DB=/var/lib/dnsdist/panel.db   # SQLite path
 PANEL_USER=admin                     # login user
 PANEL_PASS=trust-ng-admin            # login password — WAJIB ganti
 DNSDIST_APIKEY=                      # API key dnsdist :8083 (opsional)
+CDB_TOKEN=                          # X-CDB-Token peer nodes (opsional)
+DB_FILE=/var/lib/dnsdist/blacklist.db
 
 ./dnsdist-panel
 ```

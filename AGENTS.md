@@ -70,6 +70,7 @@ dnsdist-panel.service
 | POST | /api/service/reload\|restart | kontrol service |
 | GET | /api/stats/top-queries\|top-blocked\|top-asn | statistik |
 | GET | /api/health, /api/logs, /api/manifest | health/log/manifest |
+| GET | /cdb/healthz, /cdb/manifest.json, /cdb/blacklist.db, /cdb/blacklist.<sha>.db | CDB publisher (peer nodes, `X-CDB-Token`) |
 
 Auth: `Authorization: Bearer <token>` atau `X-API-Key` — 401 → frontend redirect /login.
 
