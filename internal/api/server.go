@@ -14,6 +14,7 @@ import (
 	"dnsdist-panel/internal/dnsdist"
 	"dnsdist-panel/internal/executor"
 	"dnsdist-panel/internal/store"
+	"dnsdist-panel"
 )
 
 type Config struct {
@@ -74,6 +75,15 @@ func (s *Server) Run() error {
 	auth.GET("/health", s.handleHealth)
 	auth.GET("/logs", s.handleLogs)
 	auth.GET("/manifest", s.handleManifest)
+
+	// Serve embedded frontend SPA; fallback to index.html for client routes.
+	r.NoRoute(func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.URL.Path, "/api/") {
+			c.JSON(404, gin.H{"error": "not found"})
+			return
+		}
+		static.Handler().ServeHTTP(c.Writer, c.Request)
+	})
 
 	return r.Run(s.cfg.Addr)
 }
