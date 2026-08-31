@@ -11,10 +11,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"dnsdist-panel"
 	"dnsdist-panel/internal/dnsdist"
 	"dnsdist-panel/internal/executor"
 	"dnsdist-panel/internal/store"
-	"dnsdist-panel"
 )
 
 type Config struct {
