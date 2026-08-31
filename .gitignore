@@ -1,0 +1,26 @@
+# Binaries
+/dnsdist-panel
+*.exe
+
+# Frontend
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Runtime
+*.db
+*.db-journal
+*.log
+/data/
+
+# Secrets
+.env
+.env.*
+!*.example
+*.pem
+*.key
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/

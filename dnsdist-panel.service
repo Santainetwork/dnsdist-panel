@@ -1,0 +1,20 @@
+[Unit]
+Description=DNSDist Management Panel
+Wants=dnsdist.service
+After=network.target dnsdist.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/dnsdist-panel
+Restart=on-failure
+RestartSec=3
+Environment=PANEL_ADDR=127.0.0.1:8084
+Environment=PANEL_DB=/var/lib/dnsdist/panel.db
+# Environment=PANEL_USER=admin
+# Environment=PANEL_PASS=change-me
+# Environment=DNSDIST_APIKEY=trust-ng-apikey-changeme
+# Environment=TRUST_BUILDER=/usr/local/bin/trust-builder
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
