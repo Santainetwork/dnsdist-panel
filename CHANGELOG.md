@@ -7,6 +7,13 @@ dan project ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-31
+
+### Added
+- Cluster view (Phase 5): `/api/cluster`, `/api/cluster/peers` CRUD, `/api/cluster/peers/probe`
+- Frontend halaman Cluster: local node card, peers table, add/delete peer, probe health + manifest
+- Store: tabel peers (SQLite)
+
 ## [0.2.0] - 2026-08-31
 
 ### Added

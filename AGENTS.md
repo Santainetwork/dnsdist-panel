@@ -71,6 +71,8 @@ dnsdist-panel.service
 | GET | /api/stats/top-queries\|top-blocked\|top-asn | statistik |
 | GET | /api/health, /api/logs, /api/manifest | health/log/manifest |
 | GET | /cdb/healthz, /cdb/manifest.json, /cdb/blacklist.db, /cdb/blacklist.<sha>.db | CDB publisher (peer nodes, `X-CDB-Token`) |
+| GET/POST/DELETE | /api/cluster, /api/cluster/peers | Cluster view + peers CRUD |
+| POST | /api/cluster/peers/probe | Probe peer /cdb health + manifest |
 
 Auth: `Authorization: Bearer <token>` atau `X-API-Key` — 401 → frontend redirect /login.
 
@@ -89,4 +91,4 @@ DNSDIST_APIKEY=
 - Fase 1 MVP ✅ (dashboard + sync + stats)
 - Fase 2 Mode B ✅ (local CDB via trust-builder)
 - Fase 3 config & sistem ✅
-- Fase 4 cluster (T1 central+mirror, hash-addressed CDB, token/OTP) — belum
+- Fase 4 ✅ cluster client (`--set-cdb-sources`) + Fase 5 🔄 panel cluster view (peers/probe)

@@ -36,6 +36,13 @@ func (s *Store) migrate() error {
 			domain TEXT NOT NULL UNIQUE,
 			created_at TEXT NOT NULL DEFAULT (datetime('now'))
 		);
+		CREATE TABLE IF NOT EXISTS peers (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL UNIQUE,
+			url TEXT NOT NULL,
+			token TEXT NOT NULL DEFAULT '',
+			created_at TEXT NOT NULL DEFAULT (datetime('now'))
+		);
 		CREATE TABLE IF NOT EXISTS settings (
 			key TEXT PRIMARY KEY,
 			value TEXT NOT NULL
@@ -114,3 +121,38 @@ func (s *Store) SetSetting(key, value string) error {
 }
 
 func SaveNow() string { return time.Now().UTC().Format(time.RFC3339) }
+
+type Peer struct {
+	ID        int64  `json:"id"`
+	Name      string `json:"name"`
+	URL       string `json:"url"`
+	Token     string `json:"token,omitempty"`
+	CreatedAt string `json:"created_at"`
+}
+
+func (s *Store) PeersList() ([]Peer, error) {
+	rows, err := s.db.Query("SELECT id, name, url, token, created_at FROM peers ORDER BY id")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Peer
+	for rows.Next() {
+		var p Peer
+		if err := rows.Scan(&p.ID, &p.Name, &p.URL, &p.Token, &p.CreatedAt); err != nil {
+			return nil, err
+		}
+		out = append(out, p)
+	}
+	return out, nil
+}
+
+func (s *Store) PeerAdd(name, url, token string) error {
+	_, err := s.db.Exec("INSERT OR IGNORE INTO peers (name, url, token) VALUES (?,?,?)", name, url, token)
+	return err
+}
+
+func (s *Store) PeerDelete(name string) error {
+	_, err := s.db.Exec("DELETE FROM peers WHERE name = ?", name)
+	return err
+}

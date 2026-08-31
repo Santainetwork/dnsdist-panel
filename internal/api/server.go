@@ -76,6 +76,11 @@ func (s *Server) Run() error {
 	auth.GET("/health", s.handleHealth)
 	auth.GET("/logs", s.handleLogs)
 	auth.GET("/manifest", s.handleManifest)
+	auth.GET("/cluster", s.handleClusterView)
+	auth.GET("/cluster/peers", s.handlePeersList)
+	auth.POST("/cluster/peers", s.handlePeerAdd)
+	auth.DELETE("/cluster/peers/:name", s.handlePeerDelete)
+	auth.POST("/cluster/peers/probe", s.handlePeerProbe)
 
 	// Serve embedded frontend SPA; fallback to index.html for client routes.
 	r.NoRoute(func(c *gin.Context) {
