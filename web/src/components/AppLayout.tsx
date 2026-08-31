@@ -6,6 +6,7 @@ import {
   BarChart3,
   Settings,
   ScrollText,
+  Network,
   Moon,
   Sun,
   LogOut,
@@ -21,6 +22,7 @@ const nav = [
   { to: "/stats", label: "Statistik", icon: BarChart3 },
   { to: "/config", label: "Konfigurasi", icon: Settings },
   { to: "/logs", label: "Log", icon: ScrollText },
+  { to: "/cluster", label: "Cluster", icon: Network },
 ];
 
 export function AppLayout() {

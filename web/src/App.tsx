@@ -9,6 +9,7 @@ import Blacklist from "@/pages/Blacklist";
 import Stats from "@/pages/Stats";
 import ConfigPage from "@/pages/Config";
 import Logs from "@/pages/Logs";
+import Cluster from "@/pages/Cluster";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/stats" element={<Stats />} />
             <Route path="/config" element={<ConfigPage />} />
             <Route path="/logs" element={<Logs />} />
+            <Route path="/cluster" element={<Cluster />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

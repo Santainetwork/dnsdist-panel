@@ -260,3 +260,66 @@ export function formatBytes(n?: number): string {
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
   return `${(n / (1024 * 1024)).toFixed(1)} MB`;
 }
+
+// --- Cluster ---
+
+export interface Peer {
+  id: number;
+  name: string;
+  url: string;
+  token?: string;
+  created_at?: string;
+}
+
+export interface ClusterLocal {
+  hostname?: string;
+  manifest?: Record<string, unknown> | null;
+  mode?: string;
+  sync?: Record<string, unknown> | null;
+}
+
+export interface ProbeResult {
+  ok: boolean;
+  reachable: boolean;
+  health: boolean;
+  health_body?: string;
+  manifest?: unknown;
+}
+
+export async function getCluster(): Promise<{
+  local?: ClusterLocal;
+  peers?: Peer[];
+}> {
+  return request<{ local?: ClusterLocal; peers?: Peer[] }>("/cluster");
+}
+
+export async function listPeers(): Promise<{ peers: Peer[] }> {
+  return request<{ peers: Peer[] }>("/cluster/peers");
+}
+
+export async function addPeer(
+  name: string,
+  url: string,
+  token: string
+): Promise<{ ok: boolean }> {
+  return request<{ ok: boolean }>("/cluster/peers", {
+    method: "POST",
+    body: JSON.stringify({ name, url, token }),
+  });
+}
+
+export async function deletePeer(name: string): Promise<{ ok: boolean }> {
+  return request<{ ok: boolean }>(`/cluster/peers/${encodeURIComponent(name)}`, {
+    method: "DELETE",
+  });
+}
+
+export async function probePeer(
+  url: string,
+  token: string
+): Promise<ProbeResult> {
+  return request<ProbeResult>("/cluster/peers/probe", {
+    method: "POST",
+    body: JSON.stringify({ url, token }),
+  });
+}
